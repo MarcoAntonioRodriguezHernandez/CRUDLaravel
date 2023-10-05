@@ -1,7 +1,6 @@
 <h1>{{$mode}} Autor</h1>
-
-@if(count($errors)>0)
-    <div class="alert alert-danger" role="alert">
+@if(count($errors)>0) <!--This if is used to show the alert of error if exist-->
+<div class="alert alert-danger" role="alert">
         <ul>
             @foreach($errors->all() as $error )
                 <li> {{$error}} </li>
@@ -10,6 +9,7 @@
     </div>
 @endif
 
+<!--This is a form where I can get the data-->
 <label for="name" style="width: 100%" class="form-label">Nombre
     <br><input class="form-control" type="text" name="name" id="name"
                value="{{ isset($authors->name)? $authors->name:old('name')}}" placeholder="Ej. Juan Alberto"> </label><br>

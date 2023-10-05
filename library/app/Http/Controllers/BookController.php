@@ -6,6 +6,9 @@ use App\Models\Book;
 use App\Models\Authors;
 use App\Models\Categorie;
 use App\Models\Loan;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -23,19 +26,21 @@ class BookController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @return Application|Factory|View
      */
-    public function create()
+    public function create(): Application|Factory|View
     {
         //
         $authors = Authors::all();
         $categories = Categorie::all();
-        return view('books.create',compact('categories','authors'));
+        return view('books.create', compact('categories', 'authors'));
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request This parameter is the request of the data in the form on view book/create.blade.php
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         //
         $fileds = [
@@ -75,6 +80,7 @@ class BookController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param $id| This parameter is the id from the book that you want to edit
      */
     public function edit($id)
     {
@@ -82,11 +88,13 @@ class BookController extends Controller
         $authors = Authors::all();
         $categories = Categorie::all();
         $book = Book::findOrFail($id);
-        return view('books.edit', compact('book','categories','authors'));
+        return view('books.edit', compact('book', 'categories', 'authors'));
     }
 
     /**
      * Update the specified resource in storage.
+     * @param $request| This request is getting all the data from the form to update
+     * @param $id| This parameter is the id from the book that you need to update the data
      */
     public function update(Request $request, $id)
     {
@@ -110,23 +118,23 @@ class BookController extends Controller
             'author_id.required' => 'El id de autor es requerido',
         ];
         $this->validate($request, $fileds, $message);
-
-
         $bookData = request()->except(['_token', '_method']);
         Book::where('id', '=', $id)->update($bookData);
-
         $book = Book::findOrFail($id);
-        return redirect('books')->with('message', 'Libro actualizado correctamente');
+        return redirect('books')->with('message',
+            'Libro actualizado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param $id| This parameter is to destroy a register in the query
      */
     public function destroy($id)
     {
         //
         Loan::where('book_id', '=', $id)->delete();
         Book::destroy($id);
-        return redirect('books')->with('message', 'Libro eliminado correctamente');
+        return redirect('books')->with('message',
+            'Libro eliminado correctamente');
     }
 }

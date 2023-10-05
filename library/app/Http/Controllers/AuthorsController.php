@@ -1,21 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Authors;
 use App\Models\Book;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * This function of the controller is returning the view of index with all the information of the authors
+     * @return JsonResponse This is returning a json response with the data of the authors
      */
-    public function index()
+    public function index():JsonResponse
     {
         //
-        $data['authors'] = Authors::paginate(5);
-        return view('author.index', $data);
+        $authors = Authors::all();
+        return response()->json($authors);
     }
 
     /**
@@ -24,45 +25,39 @@ class AuthorsController extends Controller
     public function create()
     {
         //
-        return view('author.create');
-
     }
 
     /**
      * Store a newly created resource in storage.
-     *
+     * @param Request $request This parameter is the request of the data in the form on view author/create.blade.php
+     * @return JsonResponse This is returning a json response with the message with data of the author
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         //
-        $fileds = [
-            'name' => 'required|string|max:50',
-            'surname' => 'required|string|max:50',
-            'gender' => 'required|string|max:50',
-            'age' => 'required'
+        $authorData = new Authors;
+        $authorData->name = $request->name; //Example of recived data: 'Juan'
+        $authorData->surname = $request->surname; //Example of recived data: 'Perez'
+        $authorData->gender = $request->gender; //Example of recived data: 'Masculino'
+        $authorData->age = $request->age; //Example of recived data: 20
+        $authorData->save();
+        $data = [
+            'message' => 'Autor agregado correctamente',
+            'author' => $authorData
         ];
-        $message = [
-            'name.required' => 'El nombre es requerido',
-            'name.max' => 'El nombre no debe exceder los 50 caracteres',
-            'surname.required' => 'El apellido es requerido',
-            'surname.max' => 'El apellido no debe exceder los 50 caracteres',
-            'gender.required' => 'El genero es requerido',
-            'gender.max' => 'El genero no debe exceder los 50 caracteres',
-            'age.required' => 'La edad es requerida',
-        ];
-        $this->validate($request, $fileds, $message);
-
-        $authorData = request()->except('_token');
-        Authors::insert($authorData);
-        return redirect('authors')->with('message', 'Autor agregado correctamente');
+        return response()->json($data);
     }
 
     /**
      * Display the specified resource.
+     * This method is returning the view of show with the all the information of the author
+     * @param Authors $authors This parameter is the id of the author
+     * @return JsonResponse This is returning a json response with the data of the author
      */
-    public function show(Authors $authors)
+    public function show(Authors $authors): JsonResponse
     {
         //
+        return response()->json($authors);
     }
 
     /**
@@ -70,53 +65,42 @@ class AuthorsController extends Controller
      */
     public function edit($id)
     {
-        //
-        $authors = Authors::findOrFail($id);
-        return view('author.edit', compact('authors'));
-
 
     }
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request This parameter is the request of the data in the form on view author/edit.blade.php
+     * @param $id| This id is used to find all the data of an author
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id): JsonResponse
     {
-        //
-        $fileds = [
-            'name' => 'required|string|max:50',
-            'surname' => 'required|string|max:50',
-            'gender' => 'required|string|max:50',
-            'age' => 'required'
+        $authorData = Authors::findOrFail($id);
+        $authorData->name = $request->name; //Example of recived data: 'Juan'
+        $authorData->surname = $request->surname; //Example of recived data: 'Perez'
+        $authorData->gender = $request->gender; //Example of recived data: 'Masculino'
+        $authorData->age = $request->age; //Example of recived data: 20
+        $authorData->save();
+        $data = [
+            'message' => 'Autor actualizado correctamente',
+            'author' => $authorData
         ];
-        $message = [
-            'name.required' => 'El nombre es requerido',
-            'name.max' => 'El nombre no debe exceder los 50 caracteres',
-            'surname.required' => 'El apellido es requerido',
-            'surname.max' => 'El apellido no debe exceder los 50 caracteres',
-            'gender.required' => 'El genero es requerido',
-            'gender.max' => 'El genero no debe exceder los 50 caracteres',
-            'age.required' => 'La edad es requerida',
-        ];
-        $this->validate($request, $fileds, $message);
-
-
-        $authorData = request()->except(['_token', '_method']);
-        Authors::where('id', '=', $id)->update($authorData);
-
-        $authors = Authors::findOrFail($id);
-        return redirect('authors')->with('message', 'Autor actualizado correctamente');
-
+        return response()->json($data);
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param $id |This parameter is the id of the author
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id):JsonResponse
     {
-        //
-        Book::where('author_id', '=', $id)->delete();
-        Authors::destroy($id);
-        return redirect('authors')->with('message', 'Autor eliminado correctamente');
+        $authorData = Authors::findOrFail($id);
+        $authorData->delete();
+        $data = [
+            'message' => 'Autor eliminado correctamente',
+            'author' => $authorData
+        ];
+        return response()->json($data);
     }
 }

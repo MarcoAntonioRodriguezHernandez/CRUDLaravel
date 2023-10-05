@@ -6,6 +6,7 @@ use App\Models\Loan;
 use App\Models\Book;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoanController extends Controller
 {
@@ -33,6 +34,7 @@ class LoanController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param $request | This param is to get all the data from the form and save a new one
      */
     public function store(Request $request)
     {
@@ -50,10 +52,8 @@ class LoanController extends Controller
             'person_id.required' => 'El nombre del usuario es requerido',
         ];
         $this->validate($request, $fileds, $message);
-
         $loanData = request()->except('_token');
         Loan::insert($loanData);
-
         return redirect('loan')->with('message', 'Prestamo agregado correctamente');
     }
 
@@ -67,6 +67,7 @@ class LoanController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param $id| This parameter is the id
      */
     public function edit($id)
     {
@@ -79,6 +80,8 @@ class LoanController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param $id| This id is used to update the data
      */
     public function update(Request $request, $id)
     {
