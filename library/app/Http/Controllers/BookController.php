@@ -127,7 +127,7 @@ class BookController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param $id| This parameter is to destroy a register in the query
+     * @param $id| This parameter is to destroy a register in the query by id
      */
     public function destroy($id)
     {

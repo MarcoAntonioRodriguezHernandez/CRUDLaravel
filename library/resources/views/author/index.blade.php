@@ -3,15 +3,15 @@
     <div class="container">
 
 
-        @if (Session::has('message'))
+        @if (Session::has('message')) <!--This is a message that show if the action was successful-->
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{Session::get('message')}}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
-
-        <a href="{{url('/authors/create')}}" class="btn btn-success">Agregar nuevo autor</a>
+<!--This is a table where I can see the data-->
+        <a href="{{url('/authors/create')}}" class="btn btn-success">Agregar nuevo autor</a> <!--This is a redirection to a form template-->
         <table class="table table-light">
             <thead class="thead-light">
             <tr>

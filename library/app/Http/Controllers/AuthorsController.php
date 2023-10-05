@@ -38,7 +38,7 @@ class AuthorsController extends Controller
         $authorData = new Authors;
         $authorData->name = $request->name; //Example of recived data: 'Juan'
         $authorData->surname = $request->surname; //Example of recived data: 'Perez'
-        $authorData->gender = $request->gender; //Example of recived data: 'Masculino'
+        $authorData->gender = $request->gender; //Example of recived data: 'Hombre'
         $authorData->age = $request->age; //Example of recived data: 20
         $authorData->save();
         $data = [
@@ -78,7 +78,7 @@ class AuthorsController extends Controller
         $authorData = Authors::findOrFail($id);
         $authorData->name = $request->name; //Example of recived data: 'Juan'
         $authorData->surname = $request->surname; //Example of recived data: 'Perez'
-        $authorData->gender = $request->gender; //Example of recived data: 'Masculino'
+        $authorData->gender = $request->gender; //Example of recived data: 'Hombre'
         $authorData->age = $request->age; //Example of recived data: 20
         $authorData->save();
         $data = [
