@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class BookController extends Controller
 {
@@ -39,6 +40,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request This parameter is the request of the data in the form on view book/create.blade.php
+     * @throws ValidationException
      */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -66,7 +68,7 @@ class BookController extends Controller
         $bookData = request()->except('_token');
         Book::insert($bookData);
 
-        return redirect('books')->with('message', 'Libro agregado correctamente');
+        return redirect('books.index')->with('message', 'Libro agregado correctamente');
     }
 
 
@@ -121,7 +123,7 @@ class BookController extends Controller
         $bookData = request()->except(['_token', '_method']);
         Book::where('id', '=', $id)->update($bookData);
         $book = Book::findOrFail($id);
-        return redirect('books')->with('message',
+        return redirect('books.index')->with('message',
             'Libro actualizado correctamente');
     }
 
