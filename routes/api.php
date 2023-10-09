@@ -15,9 +15,7 @@ use App\Http\Controllers\AuthorsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 Route::get('/authors', [AuthorsController::class, 'index'])->name('authors.index');
 Route::post('/authors',[AuthorsController::class, 'store'])->name('authors.store');
 Route::get('/authors/{authors}',[AuthorsController::class, 'show'])->name('authors.show');

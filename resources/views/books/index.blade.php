@@ -11,7 +11,8 @@
         @endif
 
 
-        <a href="{{url('/books/create')}}" class="btn btn-success">Agregar nuevo libro</a>
+        <a href="{{route('book.create')}}" class="btn btn-success">Agregar nuevo libro</a>
+    <!--begin::Table-->
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
@@ -35,9 +36,9 @@
                     <td>{{ $book->ISBN}}</td>
                     <td>{{ $book->category->name}}</td>
                     <td>{{ $book->author->name}}  {{ $book->author->surname }}</td>
-                    <td><a href="{{url('/books/'.$book->id.'/edit')}}" class="btn btn-warning"> Editar </a> |
+                    <td><a href="{{route('book.edit',$book->id)}}" class="btn btn-warning"> Editar </a> |
 
-                        <form action="{{url('/books/'.$book->id)}}" class="d-inline" method="post">
+                        <form action="{{route('book.destroy',$book->id)}}" class="d-inline" method="post">
                             @csrf
                             {{method_field('DELETE')}}
                             <input class="btn btn-danger" type="submit"
@@ -49,5 +50,6 @@
             @endforeach
             </tbody>
         </table>
+    <!--end::Table-->
     </div>
 @endsection

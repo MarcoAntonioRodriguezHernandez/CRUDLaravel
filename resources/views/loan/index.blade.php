@@ -11,7 +11,8 @@
         @endif
 
 
-        <a href="{{url('/loan/create')}}" class="btn btn-success">Agregar nuevo prestamo</a>
+        <a href="{{route('loan.create')}}" class="btn btn-success">Agregar nuevo prestamo</a>
+    <!--begin::Table-->
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
@@ -31,9 +32,9 @@
                     <td>{{ $loan->date_return}}</td>
                     <td>{{ $loan->people->name}} {{ $loan->people->surname}}</td>
                     <td>{{ $loan->book->title}}</td>
-                    <td><a href="{{url('/loan/'.$loan->id.'/edit')}}" class="btn btn-warning"> Editar </a> |
+                    <td><a href="{{route('loan.edit',$loan->id)}}" class="btn btn-warning"> Editar </a> |
 
-                        <form action="{{url('/loan/'.$loan->id.$loan->people->id)}}" class="d-inline" method="post">
+                        <form action="{{route('loan.destroy',$loan->id,$loan->people->id)}}" class="d-inline" method="post">
                             @csrf
                             {{method_field('DELETE')}}
                             <input class="btn btn-danger" type="submit"
@@ -45,5 +46,6 @@
             @endforeach
             </tbody>
         </table>
+    <!--end::Table-->
     </div>
 @endsection

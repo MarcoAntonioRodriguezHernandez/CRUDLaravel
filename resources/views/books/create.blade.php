@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
-        <form action="{{url('/books/')}}" method="post">
+        <!-- begin::Form -->
+        <form action="{{route('book.store')}}" method="post">
             @csrf
             @include ('books.form', ['mode'=>'Crear'])
-
         </form>
+        <!-- end::Form -->
     </div>
 @endsection

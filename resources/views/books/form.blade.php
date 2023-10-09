@@ -10,20 +10,27 @@
     </div>
 @endif
 
+<!--begin::All to get the title-->
 <label for="title" style="width: 100%" class="form-label">Título
     <br><input class="form-control" type="text" name="title" id="title"
-               value="{{ isset($book->title)? $book->title:old('title')}}" placeholder="Ej. Caperucita Roja"> </label>
-<br>
+               value="{{ isset($book->title)? $book->title:old('title')}}" placeholder="Ej. Caperucita Roja"> </label><br>
+<!--end::All to get the title-->
+<!--begin::All to get the editorial-->
 <label for="editorial" style="width: 100%" class="form-label">Editorial
     <br><input class="form-control" type="text" name="editorial" id="editorial"
-               value="{{isset($book->editorial)? $book->editorial:old('editorial')}}" placeholder="Ej. Panini"> </label>
-<br>
+               value="{{isset($book->editorial)? $book->editorial:old('editorial')}}" placeholder="Ej. Panini"> </label><br>
+<!--end::All to get the editorial-->
+<!--begin::All to get the year_edition-->
 <label for="year_edition" style="width: 100%" class="form-label">Año de edición
     <br> <input class="form-control" type="date" name="year_edition" id="year_edition"
                 value="{{isset($book->year_edition)? $book->year_edition:old('year_edition')}}"></label><br>
+<!--end::All to get the year_edition-->
+<!--begin::All to get the isbn-->
 <label for="isbn" style="width: 100%" class="form-label">ISBN
     <br><input class="form-control" type="number" name="isbn" id="isbn"
                value="{{isset($book->ISBN)? $book->ISBN:old('isbn')}}" placeholder="Ej. 4578529836"></label><br>
+<!--end::All to get the isbn-->
+<!--begin::All to get the cathegory-->
 <label for="category_id" style="width: 100%" class="form-label">Nombre de la categoria
     <br><select class="form-control" name="category_id" id="category_id">
         <option value="">-- Seleccione una categoria --</option>
@@ -34,6 +41,8 @@
             </option>
         @endforeach
     </select></label><br>
+<!--end::All to get the cathegory-->
+<!--begin::All to get the author-->
 <label for="author_id" style="width: 100%" class="form-label">Id de autor
     <br><select class="form-control" name="author_id" id="author_id">
         <option value="">-- Seleccione un autor --</option>
@@ -44,5 +53,6 @@
             </option>
         @endforeach
 </label><br>
+<!--end::All to get the author-->
 <br><input class="btn btn-success" type="submit" value="{{$mode}} Registro">
-<a class="btn btn-primary" href="{{url('/authors/')}}">Regresar</a>
+<a class="btn btn-primary" href="{{route('book.index')}}">Regresar</a>

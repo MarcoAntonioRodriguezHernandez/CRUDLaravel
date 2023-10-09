@@ -40,10 +40,10 @@ class LoanController extends Controller
     {
         //
         $fileds = [
-            'date_loan' => 'required|date',
-            'date_return' => 'required|date|after:date_loan',
-            'book_id' => 'required',
-            'person_id' => 'required',
+            'date_loan' => 'required|date', //Example: 'date_loan' => '2021-05-05'
+            'date_return' => 'required|date|after:date_loan', //Example: 'date_return' => '2021-05-06'
+            'book_id' => 'required', //Example: 'book_id' => '1'
+            'person_id' => 'required', //Example: 'person_id' => '1'
         ];
         $message = [
             'date_loan.required' => 'La fecha de prestamo es requerida',
@@ -54,15 +54,7 @@ class LoanController extends Controller
         $this->validate($request, $fileds, $message);
         $loanData = request()->except('_token');
         Loan::insert($loanData);
-        return redirect('loan')->with('message', 'Prestamo agregado correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Loan $loan)
-    {
-        //
+        return redirect(route('loan.index'))->with('message', 'Prestamo agregado correctamente');
     }
 
     /**
@@ -87,10 +79,10 @@ class LoanController extends Controller
     {
         //
         $fileds = [
-            'date_loan' => 'required|date',
-            'date_return' => 'required|date|after:date_loan',
-            'book_id' => 'required',
-            'person_id' => 'required',
+            'date_loan' => 'required|date', //Example: 'date_loan' => '2021-05-05'
+            'date_return' => 'required|date|after:date_loan', //Example: 'date_return' => '2021-05-06'
+            'book_id' => 'required', //Example: 'book_id' => '1'
+            'person_id' => 'required', //Example: 'person_id' => '1'
         ];
         $message = [
             'date_loan.required' => 'La fecha de prestamo es requerida',
@@ -104,7 +96,7 @@ class LoanController extends Controller
         Loan::where('id', '=', $id)->update($loanData);
 
         $loan = Loan::findOrFail($id);
-        return redirect('loan')->with('message', 'Prestamo actualizado correctamente');
+        return redirect(route('loan.index'))->with('message', 'Prestamo actualizado correctamente');
     }
 
     /**
@@ -114,6 +106,6 @@ class LoanController extends Controller
     {
         //
         Loan::destroy($id);
-        return redirect('loan')->with('message', 'Prestamo eliminado correctamente');
+        return redirect(route('loan.index'))->with('message', 'Prestamo eliminado correctamente');
     }
 }

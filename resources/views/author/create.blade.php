@@ -1,11 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="container"> <!--This is a redirection to a form template with the method I want to use-->
+    <div class="container">
+        <!-- begin::Form -->
         <form action="{{url('/authors/')}}" method="post">
             @csrf
             @include ('author.form', ['mode'=>'Crear'])
         </form>
+        <!-- end::Form -->
     </div>
 
 @endsection

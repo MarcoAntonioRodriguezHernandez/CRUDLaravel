@@ -10,8 +10,8 @@
             </div>
         @endif
 
-<!--This is a table where I can see the data-->
-        <a href="{{url('/authors/create')}}" class="btn btn-success">Agregar nuevo autor</a> <!--This is a redirection to a form template-->
+        <a href="{{url('/authors/create')}}" class="btn btn-success">Agregar nuevo autor</a>
+     <!--begin::Table-->
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
@@ -43,5 +43,6 @@
             @endforeach
             </tbody>
         </table>
+    <!--end::Table-->
     </div>
 @endsection

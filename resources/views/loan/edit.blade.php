@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
-        <form action="{{url('/loan/'.$loan->id)}}" method="post">
+        <!--begin::Form-->
+        <form action="{{route('loan.update',$loan->id)}}" method="post">
             @csrf
-            {{method_field('PATCH')}}
-
+            {{method_field('PUT')}}
             @include ('loan.form', ['mode'=>'Editar'])
         </form>
+        <!--end::Form-->
     </div>
 @endsection

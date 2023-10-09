@@ -11,7 +11,7 @@
         @endif
 
 
-        <a href="{{url('/people/create')}}" class="btn btn-success">Agregar nuevo Usuario</a>
+        <a href="{{route('people.create')}}" class="btn btn-success">Agregar nuevo Usuario</a>
         <table class="table table-light">
             <thead class="thead-light">
             <tr>
@@ -29,9 +29,9 @@
                     <td>{{ $person->surname}}</td>
                     <td>{{ $person->address}}</td>
                     <td>{{ $person->phone}}</td>
-                    <td><a href="{{url('/people/'.$person->id.'/edit')}}" class="btn btn-warning"> Editar </a> |
+                    <td><a href="{{route('people.edit',$person->id)}}" class="btn btn-warning"> Editar </a> |
 
-                        <form action="{{url('/people/'.$person->id)}}" class="d-inline" method="post">
+                        <form action="{{route('people.destroy',$person->id)}}" class="d-inline" method="post">
                             @csrf
                             {{method_field('DELETE')}}
                             <input class="btn btn-danger" type="submit"

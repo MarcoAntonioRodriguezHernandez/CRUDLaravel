@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-
-        <form action="{{url('/people/')}}" method="post">
+        <!-- begin::Form -->
+        <form action="{{route('people.store')}}" method="post">
             @csrf
             @include ('people.form', ['mode'=>'Crear'])
-
         </form>
+        <!-- end::Form -->
     </div>
 @endsection

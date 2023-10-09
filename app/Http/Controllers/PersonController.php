@@ -34,10 +34,10 @@ class PersonController extends Controller
     {
         //
         $fileds = [
-            'name' => 'required|string|max:50',
-            'surname' => 'required|string|max:50',
-            'address' => 'required|string|max:200',
-            'phone' => ''
+            'name' => 'required|string|max:50', //Example: 'name' => 'Juan'
+            'surname' => 'required|string|max:50', //Example: 'surname' => 'Perez'
+            'address' => 'required|string|max:200', //Example: 'address' => 'Calle 123'
+            'phone' => '' //Example: 'phone' => '123456789'
         ];
         $message = [
             'name.required' => 'El nombre es requerido',
@@ -52,15 +52,7 @@ class PersonController extends Controller
 
         $personData = request()->except('_token');
         Person::insert($personData);
-        return redirect('people')->with('message', 'Usuario agregado correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Person $person)
-    {
-        //
+        return redirect(route('people.index'))->with('message', 'Usuario agregado correctamente');
     }
 
     /**
@@ -80,10 +72,10 @@ class PersonController extends Controller
     {
         //
         $fileds = [
-            'name' => 'required|string|max:50',
-            'surname' => 'required|string|max:50',
-            'address' => 'required|string|max:200',
-            'phone' => 'required'
+            'name' => 'required|string|max:50', //Example: 'name' => 'Juan'
+            'surname' => 'required|string|max:50', //Example: 'surname' => 'Perez'
+            'address' => 'required|string|max:200', //Example: 'address' => 'Calle 123'
+            'phone' => 'required' //Example: 'phone' => '123456789'
         ];
         $message = [
             'name.required' => 'El nombre es requerido',
@@ -101,7 +93,7 @@ class PersonController extends Controller
         Person::where('id', '=', $id)->update($peopleData);
 
         $people = Person::findOrFail($id);
-        return redirect('people')->with('message', 'Usuario actualizado correctamente');
+        return redirect(route('people.index'))->with('message', 'Usuario actualizado correctamente');
     }
 
     /**
@@ -112,6 +104,6 @@ class PersonController extends Controller
         //
         Loan::where('person_id', '=', $id)->delete();
         Person::destroy($id);
-        return redirect('people')->with('message', 'Usuario eliminado correctamente');
+        return redirect(route('people.index'))->with('message', 'Usuario eliminado correctamente');
     }
 }

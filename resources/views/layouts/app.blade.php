@@ -38,10 +38,10 @@
                     <!-- Authentication Links -->
                 </ul>
             </div>
-            <a class="navbar-brand" href="{{url('/authors/')}}"> Autores</a>
-            <a class="navbar-brand" href="{{url('/books/')}}"> Libros</a>
-            <a class="navbar-brand" href="{{url('/people/')}}"> Usuarios</a>
-            <a class="navbar-brand" href="{{url('/loan/')}}"> Prestamos</a>
+            <a class="navbar-brand" href="{{route('authors.index')}}"> Autores</a>
+            <a class="navbar-brand" href="{{route('book.index')}}"> Libros</a>
+            <a class="navbar-brand" href="{{route('people.index')}}"> Usuarios</a>
+            <a class="navbar-brand" href="{{route('loan.index')}}"> Prestamos</a>
         </div>
     </nav>
 

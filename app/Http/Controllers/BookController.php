@@ -46,12 +46,12 @@ class BookController extends Controller
     {
         //
         $fileds = [
-            'title' => 'required|string|max:50',
-            'editorial' => 'required|string|max:50',
-            'year_edition' => 'required',
-            'isbn' => 'required',
-            'category_name',
-            'author_name'
+            'title' => 'required|string|max:50', //Example: 'title' => 'Caperucita Roja'
+            'editorial' => 'required|string|max:50', //Example: 'editorial' => 'Editorial Santillana'
+            'year_edition' => 'required', //Example: 'year_edition' => '2021-05-05'
+            'isbn' => 'required', //Example: 'isbn' => '123456789'
+            'category_name', //Example: 'category_name' => 'Terror'
+            'author_name' //Example: 'author_name' => 'Charles Perrault'
         ];
         $message = [
             'title.required' => 'El titulo es requerido',
@@ -68,21 +68,12 @@ class BookController extends Controller
         $bookData = request()->except('_token');
         Book::insert($bookData);
 
-        return redirect('books.index')->with('message', 'Libro agregado correctamente');
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Book $book)
-    {
-        //
+        return redirect(route('book.index'))->with('message', 'Libro agregado correctamente');
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param $id| This parameter is the id from the book that you want to edit
+     * @param $id | This parameter is the id from the book that you want to edit
      */
     public function edit($id)
     {
@@ -95,19 +86,19 @@ class BookController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param $request| This request is getting all the data from the form to update
-     * @param $id| This parameter is the id from the book that you need to update the data
+     * @param $request | This request is getting all the data from the form to update
+     * @param $id | This parameter is the id from the book that you need to update the data
      */
     public function update(Request $request, $id)
     {
         //
         $fileds = [
-            'title' => 'required|string|max:50',
-            'editorial' => 'required|string|max:50',
-            'year_edition' => 'required',
-            'isbn' => 'required',
-            'category_name',
-            'author_name'
+            'title' => 'required|string|max:50', //Example: 'title' => 'Caperucita Roja'
+            'editorial' => 'required|string|max:50', //Example: 'editorial' => 'Editorial Santillana'
+            'year_edition' => 'required', //Example: 'year_edition' => '2021-05-05'
+            'isbn' => 'required', //Example: 'isbn' => '123456789'
+            'category_name', //Example: 'category_name' => 'Terror'
+            'author_name' //Example: 'author_name' => 'Charles Perrault'
         ];
         $message = [
             'title.required' => 'El titulo es requerido',
@@ -123,20 +114,20 @@ class BookController extends Controller
         $bookData = request()->except(['_token', '_method']);
         Book::where('id', '=', $id)->update($bookData);
         $book = Book::findOrFail($id);
-        return redirect('books.index')->with('message',
+        return redirect(route('book.index'))->with('message',
             'Libro actualizado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param $id| This parameter is to destroy a register in the query by id
+     * @param $id | This parameter is to destroy a register in the query by id
      */
     public function destroy($id)
     {
         //
         Loan::where('book_id', '=', $id)->delete();
         Book::destroy($id);
-        return redirect('books')->with('message',
+        return redirect(Route('books.index'))->with('message',
             'Libro eliminado correctamente');
     }
 }
